@@ -156,7 +156,7 @@ include('dbConnection.php');
     <a href="#" target="_blank"  class="text-white link- text-decoration-none"><img src="img/'.$row["image"].'" alt="Los Angeles" class="d-block" style="width:100%; height: 400px;"></a>  
       <div class="carousel-caption">
       <a href="#" target="_blank"  class="text-white link- text-decoration-none"><h3>'.$row["title"].'</h3></a>  
-       <a href="#" target="_blank"  class="text-white link- text-decoration-none"><p>'.$row["led"].'</p></a> 
+      <a href="#" target="_blank"  class="text-white link- text-decoration-none"> <p>'.$row["led"].'</p></a> 
       </div>
     </div>';
     }
@@ -196,7 +196,7 @@ include('dbConnection.php');
   color:white;
   background:black;
   border-radius:10px;
-  padding:2px 10px;">سیاسی</div>
+  padding:2px 10px;"><a  href="#" target="_blank"  class="text-white link- text-decoration-none">سیاسی</a></div>
 
 
 
@@ -212,7 +212,7 @@ include('dbConnection.php');
         while($row = $result->fetch_assoc()){
           echo'<a href="#" target="_blank"><img src="img/'.$row["image"].'" width="100%" height="260px"></a>
         <div class="text">
-            <p>'.$row["title"].'</p>
+           <a href="#" target="_blank"  class="text-white link- text-decoration-none"><p>'.$row["title"].'</p></a> 
         </div>';
         }
       }
