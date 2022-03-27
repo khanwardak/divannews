@@ -1,0 +1,11 @@
+.topnav{
+	background-color: #007a99;
+	height: 100px;
+	color: white;
+}
+.nav-item{
+	color: white;
+}
+.input-group-text > form > input.input: first-child{
+	width: 100%;
+}
