@@ -127,10 +127,10 @@ include('dbConnection.php');
     if ($result->num_rows>0) {
       while($row = $result->fetch_assoc()){
       echo ' <div class="carousel-item active">
-      <img src="img/'.$row["image"].'" alt="Los Angeles" class="d-block" style="width:100%; height: 400px;">
+     <a href="#"  target="_blank"><img src="img/'.$row["image"].'" alt="Los Angeles" class="d-block" style="width:100%; height: 400px;"></a> 
       <div class="carousel-caption">
-        <h3>'.$row["title"].'</h3>
-        <p>'.$row["led"].'</p>
+      <a href="#"  target="_blank"  class="text-white link- text-decoration-none"><h3>'.$row["title"].'</h3></a>  
+       <a href="#"  target="_blank"  class="text-white link- text-decoration-none"><p>'.$row["led"].'</p></a> 
       </div>
     </div>';
     }
@@ -140,10 +140,10 @@ include('dbConnection.php');
     if ($result->num_rows>0) {
       while($row = $result->fetch_assoc()){
       echo ' <div class="carousel-item ">
-      <img src="img/'.$row["image"].'" alt="Los Angeles" class="d-block" style="width:100%; height: 400px;">
+     <a href="#" target="_blank"  class="text-white link- text-decoration-none"><img src="img/'.$row["image"].'" alt="Los Angeles" class="d-block" style="width:100%; height: 400px;"></a> 
       <div class="carousel-caption">
-        <h3>'.$row["title"].'</h3>
-        <p>'.$row["led"].'</p>
+      <a href="#" target="_blank"  class="text-white link- text-decoration-none"> <h3>'.$row["title"].'</h3></a> 
+       <a href="#" target="_blank"  class="text-white link- text-decoration-none"><p>'.$row["led"].'</p></a> 
       </div>
     </div>';
     }
@@ -153,10 +153,10 @@ include('dbConnection.php');
     if ($result->num_rows>0) {
       while($row = $result->fetch_assoc()){
       echo ' <div class="carousel-item ">
-      <img src="img/'.$row["image"].'" alt="Los Angeles" class="d-block" style="width:100%; height: 400px;">
+    <a href="#" target="_blank"  class="text-white link- text-decoration-none"><img src="img/'.$row["image"].'" alt="Los Angeles" class="d-block" style="width:100%; height: 400px;"></a>  
       <div class="carousel-caption">
-        <h3>'.$row["title"].'</h3>
-        <p>'.$row["led"].'</p>
+      <a href="#" target="_blank"  class="text-white link- text-decoration-none"><h3>'.$row["title"].'</h3></a>  
+       <a href="#" target="_blank"  class="text-white link- text-decoration-none"><p>'.$row["led"].'</p></a> 
       </div>
     </div>';
     }
@@ -210,7 +210,7 @@ include('dbConnection.php');
       $result = $con->query($sql);
       if($result->num_rows>0){
         while($row = $result->fetch_assoc()){
-          echo'<img src="img/'.$row["image"].'" width="100%" height="260px">
+          echo'<a href="#" target="_blank"><img src="img/'.$row["image"].'" width="100%" height="260px"></a>
         <div class="text">
             <p>'.$row["title"].'</p>
         </div>';
