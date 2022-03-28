@@ -278,19 +278,10 @@ include('dbConnection.php');
               }
 
              ?>
-
-       
-        
-
       </ul>
          
-         
-       </div>
-
-
-         
-         
-       </div>
+    </div>
+</div>
       <!--  sport catagory start here -->
                <div class="col bg-succes" style="margin-top: 25px;">   
 
