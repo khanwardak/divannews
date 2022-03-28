@@ -80,8 +80,8 @@ include('dbConnection.php');
         echo '
 
         <li id= "last_list" style=" ">
-           <img id="las_img" src="img/'.$row["image"].'" style=" width:95px; height:74px;">
-          <div style="display: inline; direction: rtl; "><p id="last_p" style=" ">'.$row["title"].'</p>
+         <a  class="text-decoration-none text-dark" href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank">  <img id="las_img" src="img/'.$row["image"].'" style=" width:95px; height:74px;"></a>
+          <div style="display: inline; direction: rtl; "><a class="text-decoration-none text-dark "  href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"><p id="last_p" style=" ">'.$row["title"].'</p></a>
 
 
 
@@ -127,10 +127,10 @@ include('dbConnection.php');
     if ($result->num_rows>0) {
       while($row = $result->fetch_assoc()){
       echo ' <div class="carousel-item active">
-     <a href="#"  target="_blank"><img src="img/'.$row["image"].'" alt="Los Angeles" class="d-block" style="width:100%; height: 400px;"></a> 
+     <ahref="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"><img src="img/'.$row["image"].'" alt="Los Angeles" class="d-block" style="width:100%; height: 400px;"></a> 
       <div class="carousel-caption">
-      <a href="#"  target="_blank"  class="text-white link- text-decoration-none"><h3>'.$row["title"].'</h3></a>  
-       <a href="#"  target="_blank"  class="text-white link- text-decoration-none"><p>'.$row["led"].'</p></a> 
+      <ahref="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"  class="text-white link- text-decoration-none"><h3>'.$row["title"].'</h3></a>  
+       <ahref="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"  class="text-white link- text-decoration-none"><p>'.$row["led"].'</p></a> 
       </div>
     </div>';
     }
@@ -140,10 +140,10 @@ include('dbConnection.php');
     if ($result->num_rows>0) {
       while($row = $result->fetch_assoc()){
       echo ' <div class="carousel-item ">
-     <a href="#" target="_blank"  class="text-white link- text-decoration-none"><img src="img/'.$row["image"].'" alt="Los Angeles" class="d-block" style="width:100%; height: 400px;"></a> 
+     <a href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"  class="text-white link- text-decoration-none"><img src="img/'.$row["image"].'" alt="Los Angeles" class="d-block" style="width:100%; height: 400px;"></a> 
       <div class="carousel-caption">
-      <a href="#" target="_blank"  class="text-white link- text-decoration-none"> <h3>'.$row["title"].'</h3></a> 
-       <a href="#" target="_blank"  class="text-white link- text-decoration-none"><p>'.$row["led"].'</p></a> 
+      <a href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"  class="text-white link- text-decoration-none"> <h3>'.$row["title"].'</h3></a> 
+       <ahref="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"  class="text-white link- text-decoration-none"><p>'.$row["led"].'</p></a> 
       </div>
     </div>';
     }
@@ -153,10 +153,10 @@ include('dbConnection.php');
     if ($result->num_rows>0) {
       while($row = $result->fetch_assoc()){
       echo ' <div class="carousel-item ">
-    <a href="#" target="_blank"  class="text-white link- text-decoration-none"><img src="img/'.$row["image"].'" alt="Los Angeles" class="d-block" style="width:100%; height: 400px;"></a>  
+    <a href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank" class="text-white link- text-decoration-none"><img src="img/'.$row["image"].'" alt="Los Angeles" class="d-block" style="width:100%; height: 400px;"></a>  
       <div class="carousel-caption">
-      <a href="#" target="_blank"  class="text-white link- text-decoration-none"><h3>'.$row["title"].'</h3></a>  
-      <a href="#" target="_blank"  class="text-white link- text-decoration-none"> <p>'.$row["led"].'</p></a> 
+      <a href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"  class="text-white link- text-decoration-none"><h3>'.$row["title"].'</h3></a>  
+      <a href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"  class="text-white link- text-decoration-none"> <p>'.$row["led"].'</p></a> 
       </div>
     </div>';
     }
@@ -210,7 +210,7 @@ include('dbConnection.php');
       $result = $con->query($sql);
       if($result->num_rows>0){
         while($row = $result->fetch_assoc()){
-          echo'<a href="#" target="_blank"><img src="img/'.$row["image"].'" width="100%" height="260px"></a>
+          echo'<a class="text-decoration-none text-dark" href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"><img src="img/'.$row["image"].'" width="100%" height="260px"></a>
         <div class="text">
            <a href="#" target="_blank"  class="text-white link- text-decoration-none"><p>'.$row["title"].'</p></a> 
         </div>';
@@ -231,8 +231,8 @@ include('dbConnection.php');
               $result = $con->query($sql);
               while($row = $result->fetch_assoc()){
                 echo ' <li id= "last_list" style=" ">
-           <img id="las_img" src="img/'.$row["image"].'" style=" width:160px; height:120px;">
-          <div style="display: inline; direction: rtl; "><p id="last_p" style=" ">'.$row["title"].'</p>
+        <a class="text-decoration-none text-dark" href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"><img id="las_img" src="img/'.$row["image"].'" style=" width:160px; height:120px;"></a>   
+          <div style="display: inline; direction: rtl; "><a class="text-decoration-none text-dark" href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"><p id="last_p" style=" ">'.$row["title"].'</p></a>
 
 
           </div>
@@ -265,8 +265,9 @@ include('dbConnection.php');
               if($result->num_rows>0){
                 while($row = $result->fetch_assoc()){
                   echo ' <li id= "last_list" style=" ">
-           <img id="las_img" src="img/'.$row["image"].'" style=" width:160px; height:120px;">
-          <div style="display: inline; direction: rtl; "><p id="last_p" style=" ">'.$row["title"].'</p>
+         <a class="text-decoration-none text-dark" href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"> <img id="las_img" src="img/'.$row["image"].'" style=" width:160px; height:120px;"></a> 
+          <div style="display: inline; direction: rtl; ">
+          <a class="text-decoration-none text-dark" href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"><p id="last_p" style=" ">'.$row["title"].'</p></a>
 
 
 
@@ -319,9 +320,9 @@ include('dbConnection.php');
                       $result = $con->query($sql);
                       if ($result->num_rows>0) {
                         while($row = $result->fetch_assoc()){
-                          echo'<img src="img/'.$row["image"].'" width="100%" height="260px">
+                          echo'<a class="text-decoration-none text-dark" href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"><img src="img/'.$row["image"].'" width="100%" height="260px"></a>
                        <div class="text">
-                         <p>'.$row["title"].'</p>
+                        <a href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"><p>'.$row["title"].'</p></a> 
                        </div>';
                         }
                       }
@@ -336,8 +337,9 @@ include('dbConnection.php');
           if ($result -> num_rows>0) {
               while($row = $result->fetch_assoc()){
                 echo ' <li id= "last_list" style=" ">
-           <img id="las_img" src="img/'.$row["image"].'" style=" width:95px; height:74px;">
-          <div style="display: inline; direction: rtl; "><p id="last_p" style=" ">'.$row["title"].'</p>
+        <a class="text-decoration-none text-dark" href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank">   <img id="las_img" src="img/'.$row["image"].'" style=" width:95px; height:74px;"></a>
+          <div style="display: inline; direction: rtl; ">
+          <a class="text-decoration-none text-dark" href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"><p id="last_p" style=" ">'.$row["title"].'</p></a>
 
           </div>
         </li>';
@@ -379,9 +381,10 @@ include('dbConnection.php');
                   $result = $con->query($sql);
                   if($result->num_rows>0){
                     while($row = $result->fetch_assoc()){
-                      echo '<img src="img/'.$row["image"].'" width="100%" height="260px">
+                      echo '
+                      <a class="text-decoration-none text-dark" href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"><img src="img/'.$row["image"].'" width="100%" height="260px"></a>
                    <div class="text">
-                      <p>'.$row["title"].'</p>
+                     <a class="text-decoration-none text-white" href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"><p>'.$row["title"].'</p></a> 
                   </div>';
                     }
                   }
@@ -398,8 +401,9 @@ include('dbConnection.php');
               if($result->num_rows>0){
                 while($row = $result->fetch_assoc()){
                   echo'  <li id= "last_list" style=" ">
-           <img id="las_img" src="img/'.$row["image"].'" style=" width:95px; height:74px; margin-left: 20px;">
-            <div style="display: inline; direction: rtl; "><p id="last_p" style=" ">'.$row["title"].'</p>
+         <a class="text-decoration-none text-dark" href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"> <img id="las_img" src="img/'.$row["image"].'" style=" width:95px; height:74px; margin-left: 20px;"></a> 
+            <div style="display: inline; direction: rtl; ">
+            <a class="text-decoration-none text-dark" href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"><p id="last_p" style=" ">'.$row["title"].'</p></a>
             </div>
         </li>';
                 }
@@ -437,9 +441,10 @@ include('dbConnection.php');
         $result = $con->query($sql);
         if ($result->num_rows>0) {
             while($row= $result->fetch_assoc()){
-              echo '<img src="img/'.$row["image"].'" width="100%" height="260px">
+              echo '
+              <a class="text-decoration-none text-dark" href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"><img src="img/'.$row["image"].'" width="100%" height="260px"></a>
            <div class="text">
-            <p>'.$row["title"].'</p>
+           <a class="text-decoration-none text-white" href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"><p>'.$row["title"].'</p></a> 
            </div>';
             }
         }
@@ -454,9 +459,11 @@ include('dbConnection.php');
             $result = $con->query($sql);
             if ($result->num_rows>0) {
                 while($row = $result->fetch_assoc()){
-                  echo ' <li id= "last_list" style=" ">
-           <img id="las_img" src="img/'.$row["image"].'" style=" width:95px; height:74px;">
-          <div style="display: inline; direction: rtl; "><p id="last_p" style=" ">'.$row["title"].'</p>
+                  echo ' 
+        <li id= "last_list" style=" ">
+          <a class="text-decoration-none text-dark" href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"><img id="las_img" src="img/'.$row["image"].'" style=" width:95px; height:74px;"></a> 
+          <div style="display: inline; direction: rtl; ">
+          <a class="text-decoration-none text-dark" href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"><p id="last_p" style=" ">'.$row["title"].'</p></a>
           </div>
         </li>';
                 }

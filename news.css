@@ -6,3 +6,6 @@
 .container.mt-8.mmain.row.news.row.newsimage{
 	height: 400px;
 }
+.list-group{
+	list-style-type: none;
+}

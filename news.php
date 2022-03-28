@@ -23,6 +23,8 @@
 <?php 
 include('dbConnection.php');
   include('header.php');
+  $id=$_GET['id'];
+  $cat=$_GET['cat'];
  ?>
 
 
@@ -35,17 +37,48 @@ include('dbConnection.php');
 <div  class="container mt-8 mmain">
 	
 <div class="row news">
-	<div class="col-lg-4 col-md-12 col-sm-12 bg-success">
-		
+	<div class="col-lg-4 col-md-12 col-sm-12 bg-succe ">
+		<div class="col">
+			<ul class="list-group">
+				<?php 
+					$sql="select * from news where id ='$id' and cat = '$cat' order by id desc limit 7";
+					$result = $con->query($sql);
+					if ($result->num_rows>0) {
+						while($row = $result->fetch_assoc()){
+							echo'<li>
+					<a href="news.php?id='.$row["id"].'&cat='.$row["cat"].'"><img class="releted" src="img/'.$row["image"].'" width="40%"></a>
+					<div class="newtext">
+						<p>'.$row["title"].'</p>
+					</div>
+				</li>';
+						}
+					}
+
+				 ?>
+			
+				
+
+			</ul>
+		</div>
 	</div>
 	<div class="col-lg-8 col-md-12 col-sm-12 bg-primar">
-		<div class="col bg-success">
-			<img src="img/red.jpg" width="100%">
+		<?php 
+			$sql="select * from news where id='$id' and cat ='$cat'";
+			$result = $con->query($sql);
+			if ($result->num_rows>0) {
+				while($row = $result->fetch_assoc()){
+					echo'<div class="col">
+			<img src="img/'.$row["image"].'" width="100%">
 		</div>
-		<div class="col bg-warning">
-			<p>the news test apear here</p>
+		<div class="col">
+			<p>'.$row["title"].'</p> <br>
+			<p>'.$row["matan"].'</p>
+		</div>';
+				}
+			}
 
-		</div>
+		 ?>
+		
 
 
 	</div>
@@ -87,6 +120,9 @@ include('dbConnection.php');
   #nav{display: none;}
   .topnav{display: none;}
   .nav{display: none;}
+  .releted{display: none;}
+  .newtext{display: none;}
+
 }
 @media only screen and (min-width: 440px){
 .sider{
@@ -94,7 +130,15 @@ include('dbConnection.php');
 }
 
 }
+.list-group{
+	list-style-type: none;
+	display: inline-block;
+}
+.releted{
+	float: right;
+}
 
+}
 </style>
 </body>
 </html>
@@ -115,5 +159,6 @@ function openRightMenu() {
 function closeRightMenu() {
   document.getElementById("rightMenu").style.display = "none";
 }
+
 </script>
      
