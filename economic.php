@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Divannews</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Divannews</title>
 
-	<link rel="stylesheet" type="text/css" href="w3.css">
+  <link rel="stylesheet" type="text/css" href="w3.css">
   <link rel="stylesheet" type="text/css" href="style.css">
 
  <meta charset="utf-8">
@@ -19,11 +19,19 @@
 </head>
 
 
-<?php
+<header>
+  <?php 
+
+  include('hadle.php');
+
+   ?>
+<div class="container mt-2 fixed-top" style="" >
+
+<?php 
 
   include('header.php');
-  
-  ?>
+
+ ?>
 
 
  
@@ -73,46 +81,33 @@
 
       <ul style="text-align: right;list-style-type: none; " class="list-group">
 
+        <?php 
+
+    $sql ="select * from news where fresh ='true' order by id desc limit 4";
+    $result = $con->query($sql);
+    if($result->num_rows>0){
+      while ($row = $result->fetch_assoc()) {
+        echo '
+
         <li id= "last_list" style=" ">
-           <img id="las_img" src="img/single_post_img.jpg" style=" width:95px; height:74px;">
-          <div style="display: inline; direction: rtl; "><p id="last_p" style=" ">د افغانستان اسلامی امارت د کورینو چترو    د لا اسلا می ساسلامی اسلام نمیتبینمت من </p>
+         <a  class="text-decoration-none text-dark" href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank">  <img id="las_img" src="img/'.$row["image"].'" style=" width:95px; height:74px;"></a>
+          <div style="display: inline; direction: rtl; "><a class="text-decoration-none text-dark "  href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"><p id="last_p" style=" ">'.$row["title"].'</p></a>
 
 
 
           </div>
 
-        
-        </li>
-         <li id = "last_list">
-           <img id="las_img" src="img/single_post_img.jpg" style=" width:95px; height:74px;">
-          <div style="display: inline; direction: rtl; "><p id="last_p">د افغانستان اسلامی امارت د کورینو چترو    د لا اسلا می ساسلامی اسلام نمیبتیمتبمن </p>
+       
+      
+
+     ';
+      }
+    }else{
+      echo"no data";
+    }
 
 
-
-          </div>
-
-        
-        </li>
-         <li id = "last_list">
-           <img id="las_img" src="img/single_post_img.jpg" style=" width:95px; height:74px;">
-          <div style="display: inline; direction: rtl; "><p id="last_p">د افغانستان اسلامی امارت د کورینو چترو    د لا اسلا می ساسلامی اسمیبتیمتبیبتینمت من </p>
-
-
-
-          </div>
-
-        
-        </li>
-        <li id = "last_list">
-           <img id="las_img" src="img/single_post_img.jpg" style=" width:95px; height:74px;">
-          <div style="display: inline; direction: rtl; "><p id="last_p">د افغانستان اسلامی امارت د کورینو چترو    د لا اسلا می سااسلام نمیبتیمتبیبتینمت من </p>
-
-
-
-          </div>
-
-        
-        </li>
+?>
 
       
 
@@ -134,27 +129,49 @@
   
   <!-- The slideshow/carousel -->
   <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="img/photograph_img3.jpg" alt="Los Angeles" class="d-block" style="width:100%; height: 400px;">
+   <?php 
+
+    $sql="select * from news where position = '1' and page ='first' order by id desc limit 1";
+    $result =$con->query($sql);
+    if ($result->num_rows>0) {
+      while($row = $result->fetch_assoc()){
+      echo ' <div class="carousel-item active">
+     <a href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"><img src="img/'.$row["image"].'" alt="Los Angeles" class="d-block" style="width:100%; height: 400px;"></a> 
       <div class="carousel-caption">
-        <h3>Los Angeles</h3>
-        <p>We had such a great time in LA!</p>
+      <a href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"  class="text-white link- text-decoration-none"><h3>'.$row["title"].'</h3></a>  
+       <ahref="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"  class="text-white link- text-decoration-none"><p>'.$row["led"].'</p></a> 
       </div>
-    </div>
-    <div class="carousel-item">
-      <img src="img/slider_img2.jpg" alt="Chicago" class="d-block" style="width:100%; height: 400px;">
+    </div>';
+    }
+  }
+     $sql="select * from news where position = '2' and page ='first' order by id desc limit 1";
+    $result =$con->query($sql);
+    if ($result->num_rows>0) {
+      while($row = $result->fetch_assoc()){
+      echo ' <div class="carousel-item ">
+     <a href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"  class="text-white link- text-decoration-none"><img src="img/'.$row["image"].'" alt="Los Angeles" class="d-block" style="width:100%; height: 400px;"></a> 
       <div class="carousel-caption">
-        <h3>Chicago</h3>
-        <p>Thank you, Chicago!</p>
-      </div> 
-    </div>
-    <div class="carousel-item">
-      <img src="img/single_post_img.jpg" style="width:100%; height: 400px;">
+      <a href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"  class="text-white link- text-decoration-none"> <h3>'.$row["title"].'</h3></a> 
+       <ahref="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"  class="text-white link- text-decoration-none"><p>'.$row["led"].'</p></a> 
+      </div>
+    </div>';
+    }
+  }
+     $sql="select * from news where position = '3' and page ='first' order by id desc limit 1";
+    $result =$con->query($sql);
+    if ($result->num_rows>0) {
+      while($row = $result->fetch_assoc()){
+      echo ' <div class="carousel-item ">
+    <a href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank" class="text-white link- text-decoration-none"><img src="img/'.$row["image"].'" alt="Los Angeles" class="d-block" style="width:100%; height: 400px;"></a>  
       <div class="carousel-caption">
-        <h3>New York</h3>
-        <p>We love the Big Apple!</p>
-      </div>  
-    </div>
+      <a href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"  class="text-white link- text-decoration-none"><h3>'.$row["title"].'</h3></a>  
+      <a href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"  class="text-white link- text-decoration-none"> <p>'.$row["led"].'</p></a> 
+      </div>
+    </div>';
+    }
+  }
+
+   ?>
   </div>
   
   <!-- Left and right controls/icons -->
@@ -206,46 +223,42 @@
                               color:white;
                               background:black;
                               border-radius:10px;
-                              padding:2px 10px;">اقاصلدی</div>
+                              padding:2px 10px;">اقتصادی</div>
                   <div class="box w3-card-2  col-sm-12 col-md-12">
-                     <img src="img/single_post_img.jpg" width="100%" height="260px">
+                    <?php
+
+                      $sql="select * from news where cat ='اقتصادی'  and importantON ='مهم' order by id desc limit 1";
+                      $result = $con ->query($sql);
+                      if($result->num_rows>0){
+                        while ($row = $result->fetch_assoc()){
+                          echo '<a class="text-decoration-none text-white" href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"><img src="img/'.$row["image"].'" width="100%" height="260px"></a> 
                        <div class="text">
-                         <p>د فغانستان سلامی امارت د داخلط وزیر وایی  فغانستان سلامی امارت د داخلط وزیر وایی افغانستان سلامی امارت د داخلط وزیر وایی </p>
-                       </div>
+                         <p><a class="text-decoration-none text-white" href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank">'.$row["title"].'</a></p>
+                       </div>';
+                        }
+                      }
+                      ?>
+                    
                  </div>
       <ul style="text-align: right;list-style-type: none;  margin-top: 10px; padding-right: 0px; " class="list-group w3-card">
-
-        <li id= "last_list" style=" ">
-           <img id="las_img" src="img/single_post_img.jpg" style=" width:95px; height:74px;">
-          <div style="display: inline; direction: rtl; "><p id="last_p" style=" ">د افغانستان اسلامی امارت د کورینو چترو    د لا اسلا می ساسلامی اسلام نمیتبینمت من </p>
-
+          <?php 
+            $sql ="select * from news where position ='2' and cat = 'اقتصادی' order by id desc limit 4";
+            $result = $con ->query($sql);
+            if ($result->num_rows>0) {
+                  while ($row = $result->fetch_assoc()){
+                    echo ' <li id= "last_list" style=" ">
+          <a class="text-decoration-none text-white" href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"><img id="las_img" src="img/'.$row["image"].'" style=" width:95px; height:74px;"></a> 
+     
+         <div style="display: inline; direction: rtl; ">
+    <a class="text-decoration-none text-dark" href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"><p id="last_p" style=" ">'.$row["title"].'</p></a>
           </div>
-        </li>
+        </li>';
+                  }
+            }
+           ?>
+       
 
-         <li id = "last_list">
-           <img id="las_img" src="img/single_post_img.jpg" style=" width:95px; height:74px;">
-          <div style="display: inline; direction: rtl; "><p id="last_p">د افغانستان اسلامی امارت د کورینو چترو    د لا اسلا می ساسلامی اسلام نمیبتیمتبمن </p>
-
-          </div>
-
-        
-        </li>
-         <li id = "last_list">
-           <img id="las_img" src="img/single_post_img.jpg" style=" width:95px; height:74px;">
-          <div style="display: inline; direction: rtl; "><p id="last_p">د افغانستان اسلامی امارت د کورینو چترو    د لا اسلا می ساسلامی اسمیبتیمتبیبتینمت من </p>
-
-          </div>
-
-        
-        </li>
-        <li id = "last_list">
-           <img id="las_img" src="img/single_post_img.jpg" style=" width:95px; height:74px;">
-          <div style="display: inline; direction: rtl; "><p id="last_p">د افغانستان اسلامی امارت د کورینو چترو    د لا اسلا می سااسلام نمیبتیمتبیبتینمت من </p>
-
-          </div>
-
-        </li>
-
+      
       
 
       </ul>
@@ -262,38 +275,39 @@
    </div>
 
       
-            <div class="box col-sm-12 col-md-12">
-                 <img src="img/single_post_img.jpg" width="100%" height="260px">
-                   <div class="text">
-                      <p>د فغانستان سلامی امارت د داخلط وزیر وایی  فغانستان سلامی امارت د داخلط وزیر وایی افغانستان سلامی امارت د داخلط  وزیر وایی </p>
-                  </div>
+             <div class="box w3-card-2  col-sm-12 col-md-12">
+                    <?php
 
-          </div>  
+                      $sql="select * from news where cat ='اقتصادی'  and importantON ='مهم' order by id desc limit 1";
+                      $result = $con ->query($sql);
+                      if($result->num_rows>0){
+                        while ($row = $result->fetch_assoc()){
+                          echo '<a class="text-decoration-none text-white" href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"><img src="img/'.$row["image"].'" width="100%" height="260px"></a> 
+                       <div class="text">
+                         <p><a class="text-decoration-none text-white" href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank">'.$row["title"].'</a></p>
+                       </div>';
+                        }
+                      }
+                      ?>
+                    
+                 </div>  
                       <ol style="text-align: right;list-style-type: none;  margin-top: 10px; padding-right: 0px; " class="list-group w3-card">
 
-        <li id= "last_list" style=" ">
-           <img id="las_img" src="img/single_post_img.jpg" style=" width:95px; height:74px; margin-left: 20px;">
-            <div style="display: inline; direction: rtl; "><p id="last_p" style=" ">د افغانستان اسلامی امارت د کورینو چترو    د لا اسلا می ساسلامی اسلام نمیتبینمت من </p>
-            </div>
-        </li>
-
-         <li id = "last_list">
-           <img id="las_img" src="img/single_post_img.jpg" style=" width:95px; height:74px;">
-             <div style="display: inline; direction: rtl; "><p id="last_p">د افغانستان اسلامی امارت د کورینو چترو    د لا اسلا می ساسلامی اسلام نمیبتیمتبمن </p>
-             </div>
-        </li>
-
-        <li id = "last_list">
-           <img id="las_img" src="img/single_post_img.jpg" style=" width:95px; height:74px;">
-           <div style="display: inline; direction: rtl; "><p id="last_p">د افغانستان اسلامی امارت د کورینو چترو    د لا اسلا می ساسلامی اسمیبتیمتبیبتینمت من </p>
-           </div>
-       </li>
-
-        <li id = "last_list">
-           <img id="las_img" src="img/single_post_img.jpg" style=" width:95px; height:74px;">
-            <div style="display: inline; direction: rtl; "><p id="last_p">د افغانستان اسلامی امارت د کورینو چترو    د لا اسلا می سااسلام نمیبتیمتبیبتینمت من </p>
-            </div>
-        </li>
+       <?php 
+            $sql ="select * from news where position ='2' and cat = 'اقتصادی' order by id desc limit 4";
+            $result = $con ->query($sql);
+            if ($result->num_rows>0) {
+                  while ($row = $result->fetch_assoc()){
+                    echo ' <li id= "last_list" style=" ">
+          <a class="text-decoration-none text-white" href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"><img id="las_img" src="img/'.$row["image"].'" style=" width:95px; height:74px;"></a> 
+     
+         <div style="display: inline; direction: rtl; ">
+    <a class="text-decoration-none text-dark" href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"><p id="last_p" style=" ">'.$row["title"].'</p></a>
+          </div>
+        </li>';
+                  }
+            }
+           ?>
       </ol> 
 </div>
 
@@ -311,38 +325,38 @@
  
                     
      <div class="box col-sm-12 col-md-12 ">
-         <img src="img/single_post_img.jpg" width="100%" height="260px">
-           <div class="text">
-            <p>د فغانستان سلامی امارت د داخلط وزیر وایی  فغانستان سلامی امارت د داخلط وزیر وایی افغانستان سلامی امارت د داخلط          وزیر وایی </p>
-           </div>
+          <?php
+
+                      $sql="select * from news where cat ='اقتصادی'  and importantON ='مهم' order by id desc limit 1";
+                      $result = $con ->query($sql);
+                      if($result->num_rows>0){
+                        while ($row = $result->fetch_assoc()){
+                          echo '<a class="text-decoration-none text-white" href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"><img src="img/'.$row["image"].'" width="100%" height="260px"></a> 
+                       <div class="text">
+                         <p><a class="text-decoration-none text-white" href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank">'.$row["title"].'</a></p>
+                       </div>';
+                        }
+                      }
+                      ?>
      </div>
 
     <ul style="text-align: right;list-style-type: none; margin-top: 10px; padding-right: 0px; " class="list-group w3-card">
 
-        <li id= "last_list" style=" ">
-           <img id="las_img" src="img/single_post_img.jpg" style=" width:95px; height:74px;">
-          <div style="display: inline; direction: rtl; "><p id="last_p" style=" ">د افغانستان اسلامی امارت د کورینو چترو    د لا اسلا می ساسلامی اسلام نمیتبینمت من </p>
+        <?php 
+            $sql ="select * from news where position ='2' and cat = 'اقتصادی' order by id desc limit 4";
+            $result = $con ->query($sql);
+            if ($result->num_rows>0) {
+                  while ($row = $result->fetch_assoc()){
+                    echo ' <li id= "last_list" style=" ">
+          <a class="text-decoration-none text-white" href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"><img id="las_img" src="img/'.$row["image"].'" style=" width:95px; height:74px;"></a> 
+     
+         <div style="display: inline; direction: rtl; ">
+    <a class="text-decoration-none text-dark" href="news.php?id='.$row["id"].'&cat='.$row["cat"].'" target="_blank"><p id="last_p" style=" ">'.$row["title"].'</p></a>
           </div>
-        </li>
-
-         <li id = "last_list">
-           <img id="las_img" src="img/single_post_img.jpg" style=" width:95px; height:74px;">
-          <div style="display: inline; direction: rtl; "><p id="last_p">د افغانستان اسلامی امارت د کورینو چترو    د لا اسلا می ساسلامی اسلام نمیبتیمتبمن </p>
-          </div>
-        </li>
-
-         <li id = "last_list">
-           <img id="las_img" src="img/single_post_img.jpg" style=" width:95px; height:74px;">
-          <div style="display: inline; direction: rtl; "><p id="last_p">د افغانستان اسلامی امارت د کورینو چترو    د لا اسلا می ساسلامی اسمیبتیمتبیبتینمت من </p>
-
-          </div>
-        </li>
-
-        <li id = "last_list">
-           <img id="las_img" src="img/single_post_img.jpg" style=" width:95px; height:74px;">
-            <div style="display: inline; direction: rtl; "><p id="last_p">د افغانستان اسلامی امارت د کورینو چترو    د لا اسلا می سااسلام نمیبتیمتبیبتینمت من </p>
-             </div>
-        </li>
+        </li>';
+                  }
+            }
+           ?>
     </ul>
 
 </div>
