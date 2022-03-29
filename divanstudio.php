@@ -1,6 +1,29 @@
 <?php include('session.php'); include('dbConnection.php');
 
+if (isset($_POST['video'])) {
+			$videoDir = "video/";
+			$source = basename($_FILES["video"]["name"]);
+			$targetVideoPath=$videoDir.$source;
+			$fileType = pathinfo($targetVideoPath,PATHINFO_EXTENSION);
+			$videoType = array('mp4','3gp','mkv');
+			if(in_array($fileType, $videoType))
+			{
+				if (move_uploaded_file($_FILES["video"]["tmp_name"], $targetVideoPath)) {
+					echo "okay";
+				}
+			}else{
+				echo"video uploaded";
+			}
+			$vtitle = $_POST["vtitle"];
+				$sql="INSERT INTO `videos` (`id`, `title`,`source`) VALUES (NULL, '$vtitle','$source');";
+		if($con->query($sql)===TRUE){
+			echo '<script>alert("خبر نشر شد")</script>';
 
+		}else{
+			echo  "opps somethis wrongs";
+		}
+
+}
 if (isset($_POST['newsInteshar'])) {
 	$targetDir = "img/";
 $fileName = basename($_FILES["image"]["name"]);
@@ -95,7 +118,8 @@ $allowTypes = array('jpg','png','jpeg','gif');
       <a class="nav-link" href="logout.php">logout</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">Link</a>
+     
+      <a onclick="document.getElementById('video').style.display='block'" class="w3-button">ویدیو</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="#">Link</a>
@@ -110,6 +134,28 @@ $allowTypes = array('jpg','png','jpeg','gif');
 
 <!-- ============================================right side conten start here================================= -->
 <div class="container mt-2">
+	<div class="w3-container">
+  
+  
+
+  <div id="video" class="w3-modal">
+    <div class="w3-modal-content w3-card-4 w3-animate-zoom ">
+      <header class="w3-container w3-red"> 
+        <span onclick="document.getElementById('video').style.display='none'" 
+        class="w3-button w3-display-topright">&times;</span>
+        <h3>انتشار ویدیو</h3>
+      </header>
+      <div class="w3-container">
+       <form method="post" enctype="multipart/form-data" class="input-group d-flex " style="width:100%; direction:rtl;">
+       	<label>عنوان</label><input class="input-group" type="text" name="vtitle">
+       	<label>انتحاب ویدو</label><input type="file" name="video">
+       	<input class="input-group btn btn-success" type="submit" name="video">
+       </form>
+      </div>
+     
+    </div>
+  </div>
+</div>
 	<form method="post"  enctype="multipart/form-data" class="input-group d-flex justify-content-end" style="width: 100%;">
 						<div class="row container">
 							<div class="col-8" style="direction:rtl;">
@@ -119,6 +165,7 @@ $allowTypes = array('jpg','png','jpeg','gif');
 							</div>
 							<div class="col-4 bg-succes " style="direction: rtl;">
 							<label>کتگوری</label>	<select class="form-select " name="cat">
+									<option>    صفحه اول    </option>
 									<option>سیاسی</option>
 										<option>اقتصادی</option>
 										<option>اجتماعی</option>

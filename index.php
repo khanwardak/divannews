@@ -42,7 +42,15 @@ include('dbConnection.php');
       
       <div class="w3-card-2" style="background-color: black;">
         <video width="100%" controls>
-  <source src="MongoDB Tutorial For Beginners _ Full Course ( 480 X 854 ).mp4" type="video/mp4">
+          <?php $sql="select * from videos order by id desc limit 1";
+            $result = $con ->query($sql);
+            if ($result->num_rows>0) {
+              while($row = $result->fetch_assoc()){
+                echo '<source src="video/'.$row["source"].'">';
+              }
+            }
+           ?>
+  
   <source src="mov_bbb.ogg" type="video/ogg">
   Your browser does not support HTML5 video.
 
@@ -278,10 +286,19 @@ include('dbConnection.php');
               }
 
              ?>
+
+       
+        
+
       </ul>
          
-    </div>
-</div>
+         
+       </div>
+
+
+         
+         
+       </div>
       <!--  sport catagory start here -->
                <div class="col bg-succes" style="margin-top: 25px;">   
 
@@ -380,6 +397,7 @@ include('dbConnection.php');
                     }
                   }
                 ?>
+
                  
 
           </div>  
