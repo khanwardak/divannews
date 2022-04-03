@@ -1,29 +1,29 @@
 <?php include('session.php'); include('dbConnection.php');
 
-if (isset($_POST['video'])) {
-			$videoDir = "video/";
-			$source = basename($_FILES["video"]["name"]);
-			$targetVideoPath=$videoDir.$source;
-			$fileType = pathinfo($targetVideoPath,PATHINFO_EXTENSION);
-			$videoType = array('mp4','3gp','mkv');
-			if(in_array($fileType, $videoType))
-			{
-				if (move_uploaded_file($_FILES["video"]["tmp_name"], $targetVideoPath)) {
-					echo "okay";
-				}
-			}else{
-				echo"video uploaded";
-			}
-			$vtitle = $_POST["vtitle"];
-				$sql="INSERT INTO `videos` (`id`, `title`,`source`) VALUES (NULL, '$vtitle','$source');";
-		if($con->query($sql)===TRUE){
-			echo '<script>alert("خبر نشر شد")</script>';
+// if (isst($_POST['video'])) {
+// 			$videoDir = "video/";
+// 			$source = basename($_FILES["video"]["name"]);
+// 			$targetVideoPath=$videoDir.$source;
+// 			$fileType = pathinfo($targetVideoPath,PATHINFO_EXTENSION);
+// 			$videoType = array('mp4','3gp','mkv');
+// 			if(in_array($fileType, $videoType))
+// 			{
+// 				if (move_uploaded_file($_FILES["video"]["tmp_name"], $targetVideoPath)) {
+// 					echo "okay";
+// 				}
+// 			}else{
+// 				echo"video uploaded";
+// 			}
+// 			$vtitle = $_POST["vtitle"];
+// 				$sql="INSERT INTO `videos` (`id`, `title`,`source`) VALUES (NULL, '$vtitle','$source');";
+// 		if($con->query($sql)===TRUE){
+// 			echo '<script>alert("خبر نشر شد")</script>';
 
-		}else{
-			echo  "opps somethis wrongs";
-		}
+// 		}else{
+// 			echo  "opps somethis wrongs";
+// 		}
 
-}
+// }
 if (isset($_POST['newsInteshar'])) {
 	$targetDir = "img/";
 $fileName = basename($_FILES["image"]["name"]);
@@ -102,6 +102,9 @@ $allowTypes = array('jpg','png','jpeg','gif');
 <link rel="stylesheet" type="text/css" href="studio.css">
 <script src="ckeditor/ckeditor.js"></script>
 <script src="js/jquery/jquery-2.2.4.min.js"></script>
+ <script src="upload.js"></script>
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 
@@ -145,13 +148,108 @@ $allowTypes = array('jpg','png','jpeg','gif');
         class="w3-button w3-display-topright">&times;</span>
         <h3>انتشار ویدیو</h3>
       </header>
-      <div class="w3-container">
-       <form method="post" enctype="multipart/form-data" class="input-group d-flex " style="width:100%; direction:rtl;">
-       	<label>عنوان</label><input class="input-group" type="text" name="vtitle">
-       	<label>انتحاب ویدو</label><input type="file" name="video">
-       	<input class="input-group btn btn-success" type="submit" name="video">
-       </form>
-      </div>
+      <div class="container">
+   
+       section class="showcase">
+  <div class="container">
+    <div class="pb-2 mt-4 mb-2 border-bottom">
+      
+    </div>
+    <form id="upload-form" class="upload-form" method="post">
+       <div class="row align-items-center">  
+          <div class="form-group col-md-9">
+            <label for="inputEmail4">Choose a file:</label>
+            <input type="file" class="form-control" id="upl-file" name="upl_file">  
+            <span id="chk-error"></span>
+          </div>
+            <div class="form-group col-md-9">
+            <label for="inputEmail4">Choose a file:</label>
+            <input type="text" class="form-control" id="title" name="title">  
+            <span id="chk-error"></span>
+          </div>
+          <div class="col">
+                <button type="submit" class="btn btn-primary mt-3 float-left" id="upload-file"><i class="fa fa-upload" aria-hidden="true"></i> Upload</button>
+            </div>
+        </div>
+    </form>
+    <hr>
+    <div class="row align-items-center">
+      <div class="col">
+        <div class="progress">
+          <div id="file-progress-bar" class="progress-bar"></div>
+       </div>
+     </div>
+    </div>
+    <div class="row align-items-center">  
+      <div class="col">
+        <div id="uploaded_file"></div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+
+<script type="text/javascript">
+  jQuery(document).on('submit', '#upload-form', function(e){
+        jQuery("#chk-error").html('');
+        e.preventDefault();
+        $.ajax({
+            xhr: function() {
+                var xhr = new window.XMLHttpRequest();         
+                xhr.upload.addEventListener("progress", function(element) {
+                    if (element.lengthComputable) {
+                        var percentComplete = ((element.loaded / element.total) * 100);
+                      var percentage=    percentComplete.toFixed(0);
+                        $("#file-progress-bar").width(percentage + '%');
+                        $("#file-progress-bar").html(percentage+'%');
+                    }
+                }, false);
+                return xhr;
+            },
+            type: 'POST',
+            url: 'upload.php',
+            data: new FormData(this),
+            contentType: false,
+            cache: false,
+            processData:false,
+            dataType:'json',
+
+            beforeSend: function(){
+                $("#file-progress-bar").width('0%');
+            },
+
+            success: function(json){
+                if(json == 'success'){
+                    $('#upload-form')[0].reset();
+                    $('#uploaded_file').html('<p style="color:#28A74B;">File has uploaded successfully!</p>');
+                }else if(json == 'failed'){
+                    $('#uploaded_file').html('<p style="color:#EA4335;">Please select a valid file to upload.</p>');
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+              console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            }
+        });
+    });
+  
+    // Check File type validation
+    $("#upl-file").change(function(){
+        var allowedTypes = ['video/mp4','image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'application/pdf', 'application/msword', 'application/vnd.ms-office', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+        var file = this.files[0];
+        var fileType = file.type;
+        if(!allowedTypes.includes(fileType)) {
+            jQuery("#chk-error").html('<small class="text-danger">Please choose a valid file (JPEG/JPG/PNG/GIF/PDF/DOC/DOCX)</small>');
+            $("#upl-file").val('');
+            return false;
+        } else {
+          jQuery("#chk-error").html('');
+        }
+    });
+</script>
+ 
+    </div>
+</div>
      
     </div>
   </div>
