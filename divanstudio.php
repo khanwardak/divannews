@@ -74,8 +74,8 @@ $allowTypes = array('jpg','png','jpeg','gif');
 }
 
 
-
 ?>
+
 
 
 <!DOCTYPE html>
@@ -102,18 +102,133 @@ $allowTypes = array('jpg','png','jpeg','gif');
 <link rel="stylesheet" type="text/css" href="studio.css">
 <script src="ckeditor/ckeditor.js"></script>
 <script src="js/jquery/jquery-2.2.4.min.js"></script>
- <script src="upload.js"></script>
+
 
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 
 <body>
+<?php
 
+if (isset($_POST["search-btn"])) {
+   $reachValue = $_POST["search"];
+  echo "<script type='text/javascript'>
+$(document).ready(function(){
+$('#Msearch').modal('show');
+});
+</script>";
+
+}
+
+  ?>
 	<div class="container all">
 		
 		<div class="container mt-3">
+ <!--  search box modle  -->
+<div class="modal" id="Msearch">
+  <div class="modal-dialog modal-fullscreen-xxl-down" >
+    <div class="modal-content">
 
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">نتیجه</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="container mt-3">
+  
+  <table class="table table-bordered table-lg" style="direction: rtl;">
+    <thead>
+      <tr>
+        <th>ای دی</th>
+        <th>عنوان</th>
+        <th>لید</th>
+        <th>عملیانت</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php 
+
+        $sql="select * from news where id ='$reachValue'";
+        $result = $con->query($sql);
+        if($result->num_rows>0){
+          while($row = $result->fetch_assoc()){
+           echo' <tr id="'.$row["id"].'">
+        <td>'.$row["id"].'</td>
+        <td>'.$row["title"].'</td>
+        <td>'.$row["led"].'</td>
+       
+        <td>         <td><button class="btn btn-danger btn-sm remove">Delete</button></td></td>
+      </tr>'; 
+          }
+        }
+        else{
+          echo "همرا   $reachValue ای دی خبر پیدا نشد";
+        }
+       ?>
+    
+    </tbody>
+  </table>
+  <script type="text/javascript">
+
+    $(".remove").click(function(){
+
+        var id = $(this).parents("tr").attr("id");
+
+
+
+        if(confirm('Are you sure to remove this record ?'))
+
+        {
+
+            $.ajax({
+
+               url: 'delete.php',
+
+               type: 'GET',
+
+               data: {id: id},
+
+               error: function() {
+
+                  alert('Something is wrong');
+
+               },
+
+               success: function(data) {
+
+                    $("#"+id).remove();
+
+                    alert("Record removed successfully");  
+
+               }
+
+            });
+
+        }
+
+    });
+
+
+
+</script>
+</div>
+
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+ <!--  end of search box -->
   
   
   <ul class="nav justify-content-center topnav">
@@ -128,7 +243,10 @@ $allowTypes = array('jpg','png','jpeg','gif');
       <a class="nav-link" href="#">Link</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link disabled" href="#">Disabled</a>
+      <form method="post" class="form-group">
+        <input type="w3-search" name="search" class="from-control " placeholder="Search" style="height: 35px; margin-top:5px">
+        <button name="search-btn" class="from-control btn btn-primary" ><i class="fa fa-search"></i></button>
+      </form>
     </li>
   </ul>
     
@@ -150,11 +268,9 @@ $allowTypes = array('jpg','png','jpeg','gif');
       </header>
       <div class="container">
    
-       section class="showcase">
+       <section class="showcase">
   <div class="container">
-    <div class="pb-2 mt-4 mb-2 border-bottom">
-      
-    </div>
+   
     <form id="upload-form" class="upload-form" method="post">
        <div class="row align-items-center">  
           <div class="form-group col-md-9">
@@ -200,7 +316,7 @@ $allowTypes = array('jpg','png','jpeg','gif');
                 xhr.upload.addEventListener("progress", function(element) {
                     if (element.lengthComputable) {
                         var percentComplete = ((element.loaded / element.total) * 100);
-                      var percentage=    percentComplete.toFixed(0);
+                      var percentage =  percentComplete.toFixed(0);
                         $("#file-progress-bar").width(percentage + '%');
                         $("#file-progress-bar").html(percentage+'%');
                     }
@@ -217,12 +333,14 @@ $allowTypes = array('jpg','png','jpeg','gif');
 
             beforeSend: function(){
                 $("#file-progress-bar").width('0%');
+                $("#upload-form").find("button").text("uploading...");
             },
 
             success: function(json){
                 if(json == 'success'){
                     $('#upload-form')[0].reset();
                     $('#uploaded_file').html('<p style="color:#28A74B;">File has uploaded successfully!</p>');
+                    $("#upload-form").find("button").text("upload");
                 }else if(json == 'failed'){
                     $('#uploaded_file').html('<p style="color:#EA4335;">Please select a valid file to upload.</p>');
                 }
@@ -235,6 +353,18 @@ $allowTypes = array('jpg','png','jpeg','gif');
   
     // Check File type validation
     $("#upl-file").change(function(){
+        var allowedTypes = ['video/mp4','image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'application/pdf', 'application/msword', 'application/vnd.ms-office', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+        var file = this.files[0];
+        var fileType = file.type;
+        if(!allowedTypes.includes(fileType)) {
+            jQuery("#chk-error").html('<small class="text-danger">Please choose a valid file (JPEG/JPG/PNG/GIF/PDF/DOC/DOCX)</small>');
+            $("#upl-file").val('');
+            return false;
+        } else {
+          jQuery("#chk-error").html('');
+        }
+    });
+     $("#upl-file").change(function(){
         var allowedTypes = ['video/mp4','image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'application/pdf', 'application/msword', 'application/vnd.ms-office', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
         var file = this.files[0];
         var fileType = file.type;
